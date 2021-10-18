@@ -28,7 +28,7 @@ pipeline {
         stage("test"){
             agent any
             steps {
-                sh 'curl http://3.239.248.143 | grep -q "A FULLY RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP AND RELEASED FOR FREE UNDER THE CREATIVE COMMONS LICENSE."'
+                sh 'curl http://3.239.248.143 | grep -qi "A FULLY RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP AND RELEASED FOR FREE UNDER THE CREATIVE COMMONS LICENSE."'
             }
         }
         stage("stop"){
@@ -40,7 +40,16 @@ pipeline {
         stage("push"){
             agent any
             steps {
-                echo 'in push'
+                script {
+                    node {
+                        withCredentials([string(credentialsId: 'dockerhub_pw', variable: 'SECRET')]) {
+                            sh '''
+                                docker login -u ${docker_user} -p ${SECRET}
+                                docker image push ${docker_user}/${IMAGE_NAME}:${IMAGE_TAG}
+                            '''
+                        }
+                    }
+                }
             }
         }
     }
