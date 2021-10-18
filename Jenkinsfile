@@ -15,7 +15,7 @@ pipeline {
         stage("build"){
             agent any
             steps {
-                sh 'docker build -t ${IMAGE_NAME_FULL}'
+                sh 'docker build -t ${IMAGE_NAME_FULL} .'
             }
         }
         stage("run"){
