@@ -28,7 +28,7 @@ pipeline {
         stage("test"){
             agent any
             steps {
-                echo 'in test'
+                sh 'curl http://3.239.248.143 | grep -q "A FULLY RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP AND RELEASED FOR FREE UNDER THE CREATIVE COMMONS LICENSE."'
             }
         }
         stage("stop"){
