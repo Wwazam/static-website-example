@@ -13,21 +13,25 @@ pipeline {
 
     stages {
         stage("build"){
+            agent any
             steps {
                 sh 'docker build -t ${IMAGE_NAME_FULL}'
             }
         }
         stage("run"){
+            agent any
             steps {
                 sh 'docker run --name ${CONTAINER_NAME} -p 80:80 ${IMAGE_NAME_FULL}'
             }
         }
         stage("test"){
+            agent any
             steps {
                 echo 'in test'
             }
         }
         stage("push"){
+            agent any
             steps {
                 echo 'in push'
             }
