@@ -28,7 +28,7 @@ pipeline {
         stage("test"){
             agent any
             steps {
-                sh 'curl http://3.239.248.143 | grep -qi "A FULLY RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP AND RELEASED FOR FREE UNDER THE CREATIVE COMMONS LICENSE."'
+                sh 'curl http://3.239.248.143 | grep -qi "A FULLY RESPONSIVE SITE"'
             }
         }
         stage("stop"){
@@ -42,10 +42,10 @@ pipeline {
             steps {
                 script {
                     node {
-                        withCredentials([string(credentialsId: 'dockerhub_pw', variable: 'SECRET')]) {
+                        withCredentials([usernamePassword(credentialsId: 'dockerhub_pw',usernameVariable:'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh '''
-                                docker login -u ${docker_user} -p ${SECRET}
-                                docker image push ${docker_user}/${IMAGE_NAME}:${IMAGE_TAG}
+                                docker login -u ${USER_NAME} -p ${PASSWORD}
+                                docker image push ${IMAGE_NAME_FULL}
                             '''
                         }
                     }
