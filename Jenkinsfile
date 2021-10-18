@@ -5,8 +5,7 @@ pipeline {
         IMAGE_NAME = "${USER_NAME}/${CONTAINER_NAME}"
         IMAGE_TAG = "${BUILD_TAG}"
         IMAGE_NAME_FULL = "${IMAGE_NAME}:${IMAGE_TAG}"
-        STAGING = "bpa-staging"
-        PRODUCTION = "bpa-production"
+        IP_ADDR = "3.239.248.143"
     }
 
     agent none
@@ -28,7 +27,7 @@ pipeline {
         stage("test"){
             agent any
             steps {
-                sh 'curl http://3.239.248.143 | grep -qi "A FULLY RESPONSIVE SITE"'
+                sh 'curl http://${IP_ADDR} | grep -qi "A FULLY RESPONSIVE SITE"'
             }
         }
         stage("stop"){
