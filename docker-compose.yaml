@@ -1,0 +1,14 @@
+# docker run -p 8080:8080 -p 50000:50000 -dit dirane/jenkins
+version: "3"
+services:
+  jenkins:
+    image: dirane/jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  jenkins_home:
